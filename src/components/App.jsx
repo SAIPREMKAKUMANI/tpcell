@@ -9,24 +9,34 @@ import AboutUs from "./AboutUs";
 import Director from "./Director";
 import Tpo from "./Tpo";
 import Info from "./Info";
+import Login from "./Login";
+import Register from "./Register";
+import NoMatch from "./NoMatch";
 
 function App(){
-    const [data,setData]=useState([]);
-    function getData(props){
-       const res=props;
-       console.log(props);
-       setData(res);
-    }
+      const [currentForm,setCurrentForm]=useState('login');
+      function toggleForm(formName){
+        setCurrentForm(formName);
+      }
+      const [data,setData]=useState([{name:"Saiprem Kakumani" ,mail: "saipremkakumani@gmail.com",pass: "6281237154",fac: true}]);
+      function obtainData(props){
+        setData(prevData => {
+          return [...prevData,props];
+        })
+      }
     return <Router>
-    <Header />
+    {/* <Header/> */}
     <Routes>
-        <Route exact path="/" element={<Home shareInfo={getData}/>}/>
+        <Route exact path="/" element={currentForm ==='login' ? <Login onFormSwitch={toggleForm} userData={data} /> : <Register onFormSwitch={toggleForm} onSubmission={obtainData}/>}/>
+        <Route exact path="/Home" element={<Home/>}/>
         <Route exact path="/Training" element={<Training />}/>
         <Route exact path="/Placement" element={<Placement />}/>
         <Route exact path="/AboutUs" element={<AboutUs />}/>
         <Route exact path="/message/director" element={<Director />}/>
         <Route exact path="/message/tpo" element={<Tpo />}/>
-        <Route exact path="/Info" element={<Info details={data} />}/>
+        <Route exact path="/Info" element={<Info />}/>
+        <Route exact path="/Header" element={<Header />}/>
+        <Route path="*" element={<NoMatch/>}/>
     </Routes>
     <Footer />
 </Router>
