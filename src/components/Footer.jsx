@@ -21,25 +21,7 @@ function Footer(){
               </a>
             </p>
           </div>
-         {/*           
-          <div className="footer-col-parent">
-            <a href="https://www.linkedin.com/in/anu-kumari-401464197/" target="_blank" rel="noopener noreferrer">
-             <img src={anu} alt={"anu"} className="footer-img"/> 
-            </a>
-            <div className="footer-col">
-              <p className="footer-contact-name">Anu Kumari</p>
-              <p className="footer-contact-position">Placement Executive</p>
-              <p>
-                <a href="tel:+91-8094123615">+91-9324121272</a>
-              </p>
-              <p> 
-                <a href="mailto:placements@iiitl.ac.in">
-                  placements@iiitl.ac.in
-                </a>
-              </p>
-            </div>
-          </div> 
-          */}
+         
           <div className="footer-col">
             <h2>Links</h2>
             <p>
@@ -56,7 +38,7 @@ function Footer(){
       <p>
         ALL RIGHTS RESERVED © {date.getFullYear()}. <strong>NIT RAIPUR.</strong> (Developed
         & Managed By -{" "}
-        <a href="https://www.linkedin.com/in/blurry-x-face/" target="none">
+        <a href="https://www.linkedin.com/in/saiprem-kakumani-3a7479226/" target="none">
           Saiprem Kakumani
         </a>
         )
