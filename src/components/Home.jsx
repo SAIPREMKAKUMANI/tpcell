@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
-import Login from "./Login";
-import Register from "./Register";
+import HomeIcon from '@mui/icons-material/Home';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate,useLocation } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 
-function Home(details){
+function Home(){
   const [notes, setNotes] = useState([]);
-  const [currentForm,setCurrentForm]=useState('login');
-  const [fac,setFac]=useState(false);
+  const location=useLocation();
+  const name=location.state.name;
+  const mail=location.state.mail;
+  const fac=location.state.fac;
+  const navigate=useNavigate();
   function addNote(newNote) {
     setNotes(prevNotes => {
       return [...prevNotes, newNote];
@@ -21,25 +26,36 @@ function Home(details){
       });
     });
   }
-  function toggleForm(formName){
-    setCurrentForm(formName);
-  }
-  const [data,setData]=useState([{name:"Saiprem Kakumani" ,mail: "saipremkakumani@gmail.com",pass: "6281237154",fac: true}]);
-  function obtainData(props){
-    const res=props.fac;
-    setFac(res);
-    setData(prevData => {
-      return [...prevData,props];
-    })
-    details.shareInfo(data);
-  }
-  function faculty(props){
-    const res=props;
-    setFac(res);
+  function HeaderFn(){
+    return <div class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="http://www.nitrr.ac.in/" target="_blank">
+        <img src="/images/logo.png" alt="NIT RAIPUR" /> 
+      </a>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+        <NavLink className="nav-link active" aria-current="page" state={{fac: fac,name: name,mail: mail}} to="/Home" >
+          <HomeIcon />
+        </NavLink>
+        <NavLink style={({isActive})=>{return {fontWeight:isActive && 'bold'}}} to="/Training" state={{fac: fac,name: name,mail: mail}} className="nav-link active" aria-current="page" >TRAINING</NavLink>
+        <NavLink className="nav-link active" aria-current="page" style={({isActive})=>{return {fontWeight:isActive && 'bold'}}} to="/Placement" state={{fac: fac,name: name,mail: mail}}>PLACEMENT</NavLink>
+        <NavLink className="nav-link active" aria-current="page" style={({isActive})=>{return {fontWeight:isActive && 'bold'}}} to="/AboutUs" state={{fac: fac,name: name,mail: mail}}>ABOUT</NavLink>
+        <NavLink className="nav-link active" aria-current="page" style={({isActive})=>{return {fontWeight:isActive && 'bold'}}} to="/">LOGIN</NavLink>
+        <NavLink className="nav-link active" aria-current="page" state={{fac: fac,name: name,mail: mail}} to="/Info">
+          <AccountCircleIcon />
+        </NavLink>
+        </div>
+      </div>
+    </div>
+  </div>;
   }
   return (
+    <div>
+    <HeaderFn/>
     <div className="Home"> 
-      {currentForm=='login' ? <Login onFormSwitch={toggleForm} userData={data} isFac={faculty}/> : <Register onFormSwitch={toggleForm} onSubmission={obtainData}/>}
       <CreateArea onAdd={addNote} fOs={fac}/>
       {notes.map((noteItem, index) => {
         return (
@@ -52,6 +68,7 @@ function Home(details){
           />
         );
       })}
+    </div>
     </div>
   );
 }
